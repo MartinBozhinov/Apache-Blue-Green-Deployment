@@ -57,3 +57,16 @@ sudo nano /etc/apache2/sites-available/reverse-proxy.conf
 sudo a2ensite reverse-proxy.conf
 
 sudo systemctl restart apache2
+
+
+
+// Github CI/CD config
+
+name: Modify Reverse Proxy Configuration
+        run: |
+          if [ "$TARGET_INSTANCE" == "A" ]; then
+            cp /path/to/reverse-proxy-instanceA.conf /etc/apache2/sites-available/reverse-proxy.conf
+          else
+            cp /path/to/reverse-proxy-instanceB.conf /etc/apache2/sites-available/reverse-proxy.conf
+          fi
+          sudo systemctl restart apache2
