@@ -39,3 +39,21 @@ sudo nano /etc/apache2/sites-available/instance2.conf
 sudo a2ensite instance2.conf
 
 sudo systemctl restart apache2
+
+//// Reverse proxy config
+sudo nano /etc/apache2/sites-available/reverse-proxy.conf
+
+
+<VirtualHost *:80>
+    ServerName mywebsite.com
+
+    ProxyPass / http://localhost:90/
+    ProxyPassReverse / http://localhost:90/
+    ProxyPass /newfeature/ http://localhost:9090/
+    ProxyPassReverse /newfeature/ http://localhost:9090/
+</VirtualHost>
+
+
+sudo a2ensite reverse-proxy.conf
+
+sudo systemctl restart apache2
